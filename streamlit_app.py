@@ -1,35 +1,44 @@
-import altair as alt
-import numpy as np
-import pandas as pd
 import streamlit as st
-import subprocess
-import sys
+import pandas as pd
+import os
+import base64
 
-"""
-# Welcome to Streamlit!
+# Function to concatenate uploaded files
+def concatenate_files(uploaded_files):
+    concatenated_df = pd.DataFrame()
+    for file in uploaded_files:
+        if file.name.endswith('.csv'):
+            df = pd.read_csv(file)
+            concatenated_df = pd.concat([concatenated_df, df], ignore_index=True)
+    return concatenated_df
 
-Edit `/streamlit_app.py` to customize this app to your heart's desire :heart:.
-If you have any questions, checkout our [documentation](https://docs.streamlit.io) and [community
-forums](https://discuss.streamlit.io).
+# Function to save condensed file
+def save_condensed_file(df):
+    csv = df.to_csv(index=False)
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="condensed_data.csv">Download Condensed File</a>'
+    st.markdown(href, unsafe_allow_html=True)
 
-In the meantime, below is an example of what you can do with just a few lines of code:
-"""
+# Main function
+def main():
+    st.title("Multiple Files Condenser")
 
-uploaded_files = st.file_uploader("Choose a CSV file", accept_multiple_files=True)
-for uploaded_file in uploaded_files:
-    bytes_data = uploaded_file.read()
-    st.write("filename:", uploaded_file.name)
-    st.write(bytes_data)
+    # File upload
+    uploaded_files = st.file_uploader("Upload CSV files", accept_multiple_files=True)
 
+    if uploaded_files:
+        st.write("Files uploaded:")
+        for file in uploaded_files:
+            st.write(file.name)
 
-subprocess.run([f"{sys.executable}", "script.py"])
+        # Button to process files
+        if st.button("Condense Files"):
+            condensed_df = concatenate_files(uploaded_files)
+            st.write("Condensed DataFrame:")
+            st.write(condensed_df)
 
-# Binary files
+            # Save condensed file
+            save_condensed_file(condensed_df)
 
-binary_contents = b'whatever'
-
-# Different ways to use the API
-
-st.download_button('Download file', binary_contents)  # Defaults to 'application/octet-stream'
-
-    
+if __name__ == "__main__":
+    main()
