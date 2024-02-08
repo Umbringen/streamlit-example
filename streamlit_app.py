@@ -2,6 +2,8 @@ import altair as alt
 import numpy as np
 import pandas as pd
 import streamlit as st
+import subprocess
+import sys
 
 """
 # Welcome to Streamlit!
@@ -46,3 +48,7 @@ for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
+
+st.download_button('Download CSV', text_contents, 'text/csv')
+
+subprocess.run([f"{sys.executable}", "script.py"])
