@@ -18,10 +18,14 @@ def run_script(uploaded_files):
 # Function to save the output file
 def save_output_file():
     output_file_path = "output_file.csv"  # Output file path
-    with open(output_file_path, "rb") as file:
-        b64 = base64.b64encode(file.read()).decode()
-        href = f'<a href="data:file/csv;base64,{b64}" download="output_file.csv">Download Output File</a>'
-        st.markdown(href, unsafe_allow_html=True)
+    st.write("Output File Path:", output_file_path)  # Debugging
+    if os.path.exists(output_file_path):
+        with open(output_file_path, "rb") as file:
+            b64 = base64.b64encode(file.read()).decode()
+            href = f'<a href="data:file/csv;base64,{b64}" download="output_file.csv">Download Output File</a>'
+            st.markdown(href, unsafe_allow_html=True)
+    else:
+        st.write("Output file not found.")
 
 # Main function
 def main():
