@@ -6,7 +6,7 @@ import base64
 # Function to run the Python script
 def run_script(uploaded_files):
     # Command to run your Python script
-    command = ["python", "your_script.py"]  # Replace "your_script.py" with your actual script name
+    command = ["python", "script.py"]  # Replace "your_script.py" with your actual script name
     
     # Add uploaded files as arguments to the command
     for file in uploaded_files:
