@@ -21,6 +21,9 @@ for uploaded_file in uploaded_files:
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
 
+
+subprocess.run([f"{sys.executable}", "script.py"])
+
 # Binary files
 
 binary_contents = b'whatever'
@@ -30,4 +33,3 @@ binary_contents = b'whatever'
 st.download_button('Download file', binary_contents)  # Defaults to 'application/octet-stream'
 
     
-subprocess.run([f"{sys.executable}", "script.py"])
