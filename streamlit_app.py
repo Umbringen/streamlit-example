@@ -31,6 +31,18 @@ def save_output_file():
     else:
         st.write("Output file not found.")
 
+# Function to display the output CSV file
+def display_output_file():
+    output_file_path = "output.csv"  # Output file path
+    st.write("Output File Path:", output_file_path)  # Debugging
+
+    if os.path.exists(output_file_path):
+        df = pd.read_csv(output_file_path)
+        st.write("Output DataFrame:")
+        st.dataframe(df)
+    else:
+        st.write("Output file not found.")
+
 # Main function
 def main():
     st.title("Python Script Runner")
@@ -50,6 +62,9 @@ def main():
 
             # Save output file
             save_output_file()
+
+            # Display output file
+            display_output_file()
 
 if __name__ == "__main__":
     main()
