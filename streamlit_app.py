@@ -4,6 +4,9 @@ import subprocess
 import base64
 import pandas as pd
 
+import subprocess
+subprocess.run(["pip", "install", "pandas"])
+
 # Function to run the Python script
 def run_script(uploaded_files):
     # Command to run your Python script
