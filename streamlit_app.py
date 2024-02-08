@@ -49,6 +49,12 @@ for uploaded_file in uploaded_files:
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
 
-st.download_button('Download CSV', text_contents, 'text/csv')
-
+st.download_button(
+    "Press to Download",
+    text_contents,
+    "my_csv_file.csv",
+    "text/csv",
+    on_click=callback,
+    key='callback'
+)
 subprocess.run([f"{sys.executable}", "script.py"])
