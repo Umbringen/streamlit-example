@@ -1,2 +1,2 @@
-with open("test.txt", "a") as f:
+with open("test.csv", "a") as f:
     f.write("new line\n")
