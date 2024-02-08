@@ -1,27 +1,31 @@
 import streamlit as st
-import pandas as pd
 import os
+import subprocess
 import base64
 
-# Function to concatenate uploaded files
-def concatenate_files(uploaded_files):
-    concatenated_df = pd.DataFrame()
+# Function to run the Python script
+def run_script(uploaded_files):
+    # Command to run your Python script
+    command = ["python", "your_script.py"]  # Replace "your_script.py" with your actual script name
+    
+    # Add uploaded files as arguments to the command
     for file in uploaded_files:
-        if file.name.endswith('.csv'):
-            df = pd.read_csv(file)
-            concatenated_df = pd.concat([concatenated_df, df], ignore_index=True)
-    return concatenated_df
+        command.append(file.name)
+    
+    # Run the script
+    subprocess.run(command)
 
-# Function to save condensed file
-def save_condensed_file(df):
-    csv = df.to_csv(index=False)
-    b64 = base64.b64encode(csv.encode()).decode()
-    href = f'<a href="data:file/csv;base64,{b64}" download="condensed_data.csv">Download Condensed File</a>'
-    st.markdown(href, unsafe_allow_html=True)
+# Function to save the output file
+def save_output_file():
+    output_file_path = "path_to_your_output_file.csv"  # Replace with the path to your output file
+    with open(output_file_path, "rb") as file:
+        b64 = base64.b64encode(file.read()).decode()
+        href = f'<a href="data:file/csv;base64,{b64}" download="output_file.csv">Download Output File</a>'
+        st.markdown(href, unsafe_allow_html=True)
 
 # Main function
 def main():
-    st.title("Multiple Files Condenser")
+    st.title("Python Script Runner")
 
     # File upload
     uploaded_files = st.file_uploader("Upload CSV files", accept_multiple_files=True)
@@ -31,14 +35,13 @@ def main():
         for file in uploaded_files:
             st.write(file.name)
 
-        # Button to process files
-        if st.button("Condense Files"):
-            condensed_df = concatenate_files(uploaded_files)
-            st.write("Condensed DataFrame:")
-            st.write(condensed_df)
+        # Button to run script
+        if st.button("Run Script"):
+            run_script(uploaded_files)
+            st.write("Script executed successfully!")
 
-            # Save condensed file
-            save_condensed_file(condensed_df)
+            # Save output file
+            save_output_file()
 
 if __name__ == "__main__":
     main()
