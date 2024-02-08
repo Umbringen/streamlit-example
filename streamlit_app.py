@@ -17,7 +17,7 @@ def run_script(uploaded_files):
 
 # Function to save the output file
 def save_output_file():
-    output_file_path = "path_to_your_output_file.csv"  # Replace with the path to your output file
+    output_file_path = "output_file.csv"  # Output file path
     with open(output_file_path, "rb") as file:
         b64 = base64.b64encode(file.read()).decode()
         href = f'<a href="data:file/csv;base64,{b64}" download="output_file.csv">Download Output File</a>'
