@@ -57,7 +57,5 @@ binary_contents = b'whatever'
 
 st.download_button('Download file', binary_contents)  # Defaults to 'application/octet-stream'
 
-if st.download_button(...):
-   st.write('Thanks for downloading!')
     
 subprocess.run([f"{sys.executable}", "script.py"])
