@@ -33,7 +33,7 @@ def save_output_file():
 
 # Function to display the output CSV file
 def display_output_file():
-    output_file_path = "output.csv"  # Output file path
+    output_file_path = "output_file.csv"  # Output file path
     st.write("Output File Path:", output_file_path)  # Debugging
 
     if os.path.exists(output_file_path):
