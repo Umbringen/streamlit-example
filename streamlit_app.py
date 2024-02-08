@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import subprocess
 import base64
+import pandas as pd
 
 # Function to run the Python script
 def run_script(uploaded_files):
