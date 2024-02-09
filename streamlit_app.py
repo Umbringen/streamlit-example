@@ -51,8 +51,5 @@ def main():
             # Save output file
             save_output_file()
 
-            # Display output file
-            display_output_file()
-
 if __name__ == "__main__":
     main()
